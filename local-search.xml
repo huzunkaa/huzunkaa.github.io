@@ -4,7 +4,7 @@
   
   
   <entry>
-    <title>python学习_机器学习模块介绍（2022-9-9）</title>
+    <title>1.python学习_机器学习模块介绍（2022-9-9）</title>
     <link href="/2022/09/09/ML_1/"/>
     <url>/2022/09/09/ML_1/</url>
     
@@ -29,7 +29,57 @@
   
   
   <entry>
-    <title>SQL学习_MySQL学习模块介绍（2022-9-9）</title>
+    <title>1.日常知识_日常知识学习模块介绍（2022-9-9）</title>
+    <link href="/2022/09/09/Daily-Knowledge-1/"/>
+    <url>/2022/09/09/Daily-Knowledge-1/</url>
+    
+    <content type="html"><![CDATA[<p><strong>日常知识介绍：</strong><br>本模块的内容主要是对日常学习中的知识点和问题进行整理的模块，主要包括一些零碎的知识。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>日常知识</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Daily_knowledge</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2.日常知识随记录（2022-9月份）</title>
+    <link href="/2022/09/09/Daily-Knowledge-2/"/>
+    <url>/2022/09/09/Daily-Knowledge-2/</url>
+    
+    <content type="html"><![CDATA[<p><strong>Debug ReadSim软件（一款用来模拟三代测序reads数据的软件）</strong><br>根据官网的安装说明，重新安装了软件。<a href="https://sourceforge.net/projects/readsim/">https://sourceforge.net/projects/readsim/</a><br>1.安装软件后再次跑软件，还是存在error信息。<br>2.比较了软件自带的例子中的参考基因组和我们自己的参考基因组后发现，他们的.fna文件只有一个序列，而我们的参考基因组文件为seq文件，<br>里面包含很多Scaffold（基因组de novo测序，通过reads拼接获得Contigs后，往往还需要构建454 Paired-end库或Illumina Mate-pair库，<br>以获得一定大小片段（如3Kb、6Kb、10Kb、20Kb）两端的序列。基于这些序列，可以确定一些Contig之间的顺序关系，这些先后顺序已知的Contigs组成Scaffold。）<br>3.留下一个scaffold后重新跑，发现没有error信息，并且输出的reads结果中也没有了对应的错误。</p><p><strong>三代测序reads的矫正软件isNOcorrect</strong><br>最近几天一直在调试这个软件，但是运行了感觉没变化。<br>今天突发奇想，不知道是不是因为没有将reads转化为full_length的reads，打算将reads转化为全长读数在比较。（貌似不行）<br>发现了新的解决方法，貌似是重复运行两遍软件，将碱基质量变为+++在运行，貌似就可以了。但是不知道是否可以。</p><p><strong>最小生成树（血研所项目）</strong><br>一个连通图的生成树是一个极小的连通子图，包含全部的顶点，但是只构成一棵树，并且比顶点数少一条边</p><p><strong>血研所项目问题：</strong><br>1.为什么明明有95个样本，在01.mlst文件夹中，就变成了93个样本了。剩下的两个样本呢？kehu文件也只有93个样本，难到客户<br>只做了93个样本吗？info文件是什么（里面包含了很多ST信息）？<br>2.Tree文件夹里面的Core_Pan和Phylogeny有什么区别吗？</p><p><strong>三代测序模拟reads的错误问题</strong><br>发现深度越深，测得的假阳性的reads越多，但是变异频率越小。</p><p><strong>linux以及日常一些琐碎的知识</strong><br>$ split -l 1 run_task.sh run_task –additional-suffix&#x3D;.sh（分割文件按行）<br>grep -o ‘HIGH|oprD’ cns.anno.vcf | wc -l用来看文件里面字符串出现了多少次。<br>awk ‘{if(NR%4 &#x3D;&#x3D; 1){print “&gt;” substr($0, 2)}}{if(NR%4 &#x3D;&#x3D; 2){print}}’ xx.fastq &gt;xx.fasta（将fastq文件转化为fasta文件）<br>fasta.gz文件解压使用gunzip命令。<br>使用qsub一次性投了多个任务时，可以使用qsub -u huzunkai任务删除huzunkai账户所有的任务。<br>python的pip太慢，在后面加-i <a href="https://pypi.tuna.tsinghua.edu.cn/simple%E6%8D%A2%E6%BA%90%E3%80%82">https://pypi.tuna.tsinghua.edu.cn/simple换源。</a></p><p><strong>毒力基因分析（SRST2软件）</strong><br>conda create -n srst2 srst2(安装比较方便，唯一的缺点是没找到可以进行毒力基因分析的相对应的脚本)<br>git clone <a href="https://github.com/katholt/srst2%EF%BC%88%E6%9C%80%E5%BB%BA%E8%AE%AE%E7%9A%84%E8%BF%98%E6%98%AF%E7%9B%B4%E6%8E%A5%E5%9C%A8GitHub%E4%B8%8A%E4%B8%8B%E8%BD%BDzip%E6%96%87%E4%BB%B6%EF%BC%8C%E8%87%AA%E5%B7%B1%E8%A7%A3%E5%8E%8B%EF%BC%89">https://github.com/katholt/srst2（最建议的还是直接在GitHub上下载zip文件，自己解压）</a><br>pip install biopython（运行会显示没有Bio模块，其实是缺少了biopython模块<br>运行python VFDBgenus.py –inflie VFDB_setB_nt.fas报错：<br>mportError: Bio.Alphabet has been removed from Biopython. In many cases,<br>the alphabet can simply be ignored and removed from scripts. In a few cases,<br>you may need to specify the molecule_type as an annotation on a<br>SeqRecord for your script to work correctly. Please see<br><a href="https://biopython.org/wiki/Alphabet">https://biopython.org/wiki/Alphabet</a> for more information.<br>其实是biopython的版本太新。使用pip uninstall卸载之后pip install biopython&#x3D;&#x3D;1.76 -i <a href="https://pypi.tuna.tsinghua.edu.cn/simple%E9%87%8D%E6%96%B0%E5%AE%89%E8%A3%85%E5%8D%B3%E5%8F%AF%E3%80%82">https://pypi.tuna.tsinghua.edu.cn/simple重新安装即可。</a><br>之后安装cd-hit软件（百度或者谷歌即可）<br>注意，之后会因为python3出现问题，需要重新安装py2，并且按照biopython1.76版本才行。（转csv步骤）<br>但是后续貌似输入文件有一些没看懂，在研究一下，发现好像能直接blast注释。<br>发现了一个做毒力基因很不错的软件：abricate，在base环境下，<br>abricate –db vfdb –quiet no.102.contig &gt; Pseudomonas_VF_abricate<br>输入文件问contig就行。</p><p><strong>call SNP软件snippy</strong><br>二代测序call SNP可以使用snippy软件，在snippy环境中。<br>这个软件可以自动call SNP并且准备进化树文件。</p><p><strong>医学方面的知识</strong><br>PCT（降钙素原，procalcitonin）是一种蛋白质，当严重细菌、真菌、寄生虫感染以及脓毒症和多脏器功能衰竭时它在血浆中的水平升高。自身免疫、过敏和病毒感染时PCT不会升高。<br>C反应蛋白（英语：C-Reactive Protein，CRP） 是由肝脏生成的血浆蛋白，主要被当作发炎的指标。<br>WBC是血常规中的白细胞计数。<br>绝对嗜中性白血球数（ANC）是指白血球中的嗜中性白血球（neutrophil）之多形核白血球（segment）及带状白血球（band）的數量，可用來评估患者是否易有感染症狀產生。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>日常知识</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Daily_knowledge</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>1.SQL学习_MySQL学习模块介绍（2022-9-9）</title>
     <link href="/2022/09/09/SQL-1/"/>
     <url>/2022/09/09/SQL-1/</url>
     
@@ -54,7 +104,7 @@
   
   
   <entry>
-    <title>python学习_Python模块介绍（2022-9-9）</title>
+    <title>1.python学习_Python模块介绍（2022-9-9）</title>
     <link href="/2022/09/09/Python_1/"/>
     <url>/2022/09/09/Python_1/</url>
     
