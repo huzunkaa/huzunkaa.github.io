@@ -16,22 +16,22 @@
   <meta name="author" content="Zunkai Hu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Python学习介绍：本模块的内容主要是对学习Python进阶过程的知识点和问题进行整理的模块。">
+    <meta name="description" content="一个简单的例子进程就像我们的笔记本打开一个浏览器，打开一个word，这是两个不同的进程。线程则是我们在word中，可以打字，同时给我们拼写检查等，这就是子进程，也是线程。并且一个进程至少会有一个线程。 那么回到Python编程，我们想要同时执行多个任务，可以有两个解决方案：  多个进程，每个进程有一个线程。 一个进程，这个进程包含多个线程。  多进程首先注意一个问题，在不同的操作系统，python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1.python学习_Python模块介绍（2022-9-9）">
-<meta property="og:url" content="http://kaitecweb.one/2022/09/09/Python_1/index.html">
+<meta property="og:title" content="2.python学习_进程与线程（2022-9-9）">
+<meta property="og:url" content="http://kaitecweb.one/2022/09/09/Python-2/index.html">
 <meta property="og:site_name" content="胡尊铠的技术站">
-<meta property="og:description" content="Python学习介绍：本模块的内容主要是对学习Python进阶过程的知识点和问题进行整理的模块。">
+<meta property="og:description" content="一个简单的例子进程就像我们的笔记本打开一个浏览器，打开一个word，这是两个不同的进程。线程则是我们在word中，可以打字，同时给我们拼写检查等，这就是子进程，也是线程。并且一个进程至少会有一个线程。 那么回到Python编程，我们想要同时执行多个任务，可以有两个解决方案：  多个进程，每个进程有一个线程。 一个进程，这个进程包含多个线程。  多进程首先注意一个问题，在不同的操作系统，python">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-09T06:44:02.000Z">
-<meta property="article:modified_time" content="2022-09-09T07:06:02.514Z">
+<meta property="article:modified_time" content="2022-09-09T09:16:36.929Z">
 <meta property="article:author" content="Zunkai Hu">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>1.python学习_Python模块介绍（2022-9-9） - 胡尊铠的技术站</title>
+  <title>2.python学习_进程与线程（2022-9-9） - 胡尊铠的技术站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -208,7 +208,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="1.python学习_Python模块介绍（2022-9-9）"></span>
+            <span id="subtitle" data-typed-text="2.python学习_进程与线程（2022-9-9）"></span>
           
         </div>
 
@@ -231,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          48 字
+          2.6k 字
         
       </span>
     
@@ -242,7 +242,7 @@
         
         
         
-          1 分钟
+          22 分钟
         
       </span>
     
@@ -280,13 +280,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">1.python学习_Python模块介绍（2022-9-9）</h1>
+            <h1 style="display: none">2.python学习_进程与线程（2022-9-9）</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>Python学习介绍：</strong><br>本模块的内容主要是对学习Python进阶过程的知识点和问题进行整理的模块。</p>
-
+                <h2 id="一个简单的例子"><a href="#一个简单的例子" class="headerlink" title="一个简单的例子"></a>一个简单的例子</h2><p><strong>进程</strong>就像我们的笔记本打开一个浏览器，打开一个word，这是两个不同的进程。<br><strong>线程</strong>则是我们在word中，可以打字，同时给我们拼写检查等，这就是子进程，也是线程。<br>并且一个进程至少会有一个线程。</p>
+<p>那么回到Python编程，我们想要同时执行多个任务，可以有两个解决方案：</p>
+<ol>
+<li>多个进程，每个进程有一个线程。</li>
+<li>一个进程，这个进程包含多个线程。</li>
+</ol>
+<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1><p>首先注意一个问题，在不同的操作系统，python启动多线程的方式也是有区别的。<br><strong>linux系统</strong><br>在linux系统上，存在一个fork（）函数的调用，区别于普通函数，fork函数调用一次，返回两次，linux会自动将当前进程复制一份（子进程），分别在父子进程中返回。<br>子进程返回为0，父进程返回子进程的ID，那么这样一个父进程就会fork出很多的子进程，父进程只要统计子进程的ID，子进程只要调用getpid就可以找到父进程的ID。<br><em>Python的例子</em><br><code>import os<br>print('Process (%s) start...) % os.getpid<br>pid = os.fork()<br>if pid == 0:<br>&ensp;&ensp;&ensp;&ensp;print('I am child process (%s) and my parent is %s.' % (os.getpid(), os.getppid()))<br>else:<br>&ensp;&ensp;&ensp;&ensp;print('I (%s) just created a child process (%s).' % (os.getpid(), pid))</code><br><em>运行结果</em><br>Process (876) start…<br>I (876) just created a child process (877).<br>I am child process (877) and my parent is 876.</p>
+<p><strong>Windows系统</strong><br>win系统于linux不同，在win系统执行多进程需要使用multiprocessing模块。<br><code><br>from multiprocessing import Process<br>import os<br>def run_proc(name):<br>    print('Run child process %s (%s)...' % (name, os.getpid()))</p>
+<p>if <strong>name</strong>=='<strong>main</strong>':<br>&ensp;&ensp;&ensp;&ensp;print('Parent process %s.' % os.getpid())；#打印父进程的ID<br>&ensp;&ensp;&ensp;&ensp;p = Process(target=run_proc, args=('test',))；#将唤醒子进程的函数放到p中<br>&ensp;&ensp;&ensp;&ensp;print('Child process will start.')<br>&ensp;&ensp;&ensp;&ensp;p.start()；#打印子进程的ID<br>&ensp;&ensp;&ensp;&ensp;p.join()<br>&ensp;&ensp;&ensp;&ensp;print('Child process end.')<br></code><br>上述代码运行的结果为：<br>Parent process 928.<br>Child process will start.<br>Run child process test (929)…<br>Process end.<br>这其实比较好理解，我自己的理解放到了上述代码的注释中。唯一需要说明的是<strong>join</strong>函数，它会等待子进程运行结束后，在继续向下运行。</p>
+<p><em>进程池pool</em><br>应用于需要启动大量的子进程的需求（批量）。<br><code><br>from multiprocessing import Pool<br>import os, time, random</p>
+<p>def long_time_task(name):<br>&ensp;&ensp;&ensp;&ensp;print('Run task %s (%s)...' % (name, os.getpid()))<br>&ensp;&ensp;&ensp;&ensp;start = time.time()<br>&ensp;&ensp;&ensp;&ensp;time.sleep(random.random() * 3)<br>&ensp;&ensp;&ensp;&ensp;end = time.time()<br>&ensp;&ensp;&ensp;&ensp;print('Task %s runs %0.2f seconds.' % (name, (end - start)))</p>
+<p>if <strong>name</strong>=='<strong>main</strong>':<br>&ensp;&ensp;&ensp;&ensp;print('Parent process %s.' % os.getpid())<br>&ensp;&ensp;&ensp;&ensp;p = Pool(4)<br>&ensp;&ensp;&ensp;&ensp;for i in range(5):<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;p.apply_async(long_time_task, args=(i,))<br>&ensp;&ensp;&ensp;&ensp;print('Waiting for all subprocesses done...')<br>&ensp;&ensp;&ensp;&ensp;p.close()<br>&ensp;&ensp;&ensp;&ensp;p.join()<br>&ensp;&ensp;&ensp;&ensp;print('All subprocesses done.')<br></code><br>上述函数结果为<br>Parent process 669.<br>Waiting for all subprocesses done…<br>Run task 0 (671)…<br>Run task 1 (672)…<br>Run task 2 (673)…<br>Run task 3 (674)…<br>Task 2 runs 0.14 seconds.<br>Run task 4 (673)…<br>Task 1 runs 0.27 seconds.<br>Task 3 runs 0.86 seconds.<br>Task 0 runs 1.41 seconds.<br>Task 4 runs 1.91 seconds.<br>All subprocesses done.<br>不难理解的是，Pool会批量产生子进程，但是pool的参数会限制你同时运行子线程的个数。这也就是为什么0123先运行后，4才会再运行。</p>
+<p><strong>外部进程作为子进程</strong><br>很多时候，创建子进程是为了更方便运行其他进程（比如一些shell命令），我们通过subprocess模块启动子进程，并控制输入输出。当然像os.system这类的函数也是可以的</p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1>
                 
               </div>
             
@@ -331,8 +343,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>1.python学习_Python模块介绍（2022-9-9）</div>
-      <div>http://kaitecweb.one/2022/09/09/Python_1/</div>
+      <div>2.python学习_进程与线程（2022-9-9）</div>
+      <div>http://kaitecweb.one/2022/09/09/Python-2/</div>
     </div>
     <div class="license-meta">
       
@@ -374,9 +386,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/09/SQL-1/" title="1.SQL学习_MySQL学习模块介绍（2022-9-9）">
+                      <a href="/2022/09/09/Python_1/" title="1.python学习_Python模块介绍（2022-9-9）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1.SQL学习_MySQL学习模块介绍（2022-9-9）</span>
+                        <span class="hidden-mobile">1.python学习_Python模块介绍（2022-9-9）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -384,8 +396,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/09/Python-2/" title="2.python学习_进程与线程（2022-9-9）">
-                        <span class="hidden-mobile">2.python学习_进程与线程（2022-9-9）</span>
+                      <a href="/2022/09/09/Python-3/" title="3.python学习_魔法函数（2022-9-9）">
+                        <span class="hidden-mobile">3.python学习_魔法函数（2022-9-9）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
